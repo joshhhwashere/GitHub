@@ -1,0 +1,25 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyCalculatorApp.MainPage"
+             xmlns:vm="clr-namespace:MyCalculatorApp.ViewModels">
+
+    <!-- Establecemos el contexto de enlace para el ViewModel -->
+    <ContentPage.BindingContext>
+        <vm:CalculatorViewModel/>
+    </ContentPage.BindingContext>
+
+    <!-- Diseño de la interfaz de usuario -->
+    <StackLayout>
+        <Entry Placeholder="Número 1" Keyboard="Numeric" Text="{Binding Number1}"/>
+        <Entry Placeholder="Número 2" Keyboard="Numeric" Text="{Binding Number2}"/>
+        
+        <Button Text="Sumar" Command="{Binding CalculateCommand}" CommandParameter="Sum"/>
+        <Button Text="Restar" Command="{Binding CalculateCommand}" CommandParameter="Subtract"/>
+        <Button Text="Multiplicar" Command="{Binding CalculateCommand}" CommandParameter="Multiply"/>
+        <Button Text="Dividir" Command="{Binding CalculateCommand}" CommandParameter="Divide"/>
+
+        <Label Text="Resultado:" />
+        <Label Text="{Binding Result}" />
+    </StackLayout>
+
+</ContentPage>

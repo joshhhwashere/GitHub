@@ -1,0 +1,45 @@
+using Microsoft.Extensions.DependencyInjection;
+using MyCalculatorApp.Services;
+using MyCalculatorApp.ViewModels;
+using Xamarin.Forms;
+
+namespace MyCalculatorApp
+{
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
+
+            // Configuramos los servicios para la inyección de dependencias
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+
+            // Configuramos la página principal de la aplicación
+            MainPage = new MainPage();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            // Registramos el servicio de la calculadora y el ViewModel
+            services.AddSingleton<ICalculatorService, CalculatorService>();
+            services.AddSingleton<CalculatorViewModel>();
+        }
+
+        // Métodos de ciclo de vida de la aplicación
+        protected override void OnStart()
+        {
+            // Manejar cuando la aplicación se inicia
+        }
+
+        protected override void OnSleep()
+        {
+            // Manejar cuando la aplicación pasa a estado inactivo
+        }
+
+        protected override void OnResume()
+        {
+            // Manejar cuando la aplicación se reanuda
+        }
+    }
+}

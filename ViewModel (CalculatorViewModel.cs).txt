@@ -1,0 +1,86 @@
+using System.ComponentModel;
+using System.Windows.Input;
+using Xamarin.Forms;
+
+namespace MyCalculatorApp.ViewModels
+{
+    // Esto es el ViewModel para la calculadora
+    public class CalculatorViewModel : INotifyPropertyChanged
+    {
+        // Aquí guardamos los números y el resultado
+        private double _number1;
+        private double _number2;
+        private double _result;
+
+        // Propiedades para los números y el resultado
+        public double Number1
+        {
+            get => _number1;
+            set
+            {
+                _number1 = value;
+                OnPropertyChanged(nameof(Number1)); // Notificar que la propiedad ha cambiado
+            }
+        }
+
+        public double Number2
+        {
+            get => _number2;
+            set
+            {
+                _number2 = value;
+                OnPropertyChanged(nameof(Number2)); // Notificar que la propiedad ha cambiado
+            }
+        }
+
+        public double Result
+        {
+            get => _result;
+            set
+            {
+                _result = value;
+                OnPropertyChanged(nameof(Result)); // Notificar que la propiedad ha cambiado
+            }
+        }
+
+        // Comando para hacer el cálculo
+        public ICommand CalculateCommand { get; }
+
+        // Constructor
+        public CalculatorViewModel()
+        {
+            // Configuramos el comando para llamar al método Calculate
+            CalculateCommand = new Command<string>(Calculate);
+        }
+
+        // Método para hacer el cálculo
+        private void Calculate(string operation)
+        {
+            // Aquí hacemos las operaciones según el tipo de operación
+            switch (operation)
+            {
+                case "Sum":
+                    Result = Number1 + Number2;
+                    break;
+                case "Subtract":
+                    Result = Number1 - Number2;
+                    break;
+                case "Multiply":
+                    Result = Number1 * Number2;
+                    break;
+                case "Divide":
+                    Result = Number2 != 0 ? Number1 / Number2 : double.NaN; // Manejamos la división por cero
+                    break;
+            }
+        }
+
+        // Implementación de INotifyPropertyChanged para notificar cambios en las propiedades
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            // Notificar cambios en las propiedades
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
